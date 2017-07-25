@@ -16,7 +16,12 @@ RUN yum -y install php56u-fpm php56u php56u-opcache php56u-xml php56u-mcrypt php
 
 # Installing mysql
 # RUN yum -y install mysql-server mysql-client
-RUN yum -y install MariaDB-server MariaDB-client
+RUN echo -e "[mariadb]" >> /etc/yum.repos.d/MariaDB.repo && \
+    echo -e "name = MariaDB" >> /etc/yum.repos.d/MariaDB.repo && \
+    echo -e "baseurl = http://yum.mariadb.org/10.0/centos6-amd64" >> /etc/yum.repos.d/MariaDB.repo && \
+    echo -e "gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB" >> /etc/yum.repos.d/MariaDB.repo && \
+    echo -e "gpgcheck=1" >> /etc/yum.repos.d/MariaDB.repo && \
+    yum -y install MariaDB-Galera-server MariaDB-client galera
 
 # Installing nginx 
 RUN yum -y install nginx
